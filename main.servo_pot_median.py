@@ -20,7 +20,7 @@ servo.reset_output_buffer()
 servo.write_timeout=0
 
 def write_byte(ID, address, value):
-    print("PID GÖNDERİLİYOR")
+    print("PID IS BEING SENT!")
     packet = bytearray([
         0xFF,
         0xFF,
@@ -34,11 +34,11 @@ def write_byte(ID, address, value):
     checksum = (~sum(packet[2:])) & 0xFF
     packet.append(checksum)
     print(packet.hex())
-    print("PID komutu:", packet.hex())
+    print("PID command:", packet.hex())
     servo.write(packet)
 
 def move_servo(ID, pos):
-    print("Komut gönderildi", ID, pos)
+    print("Command has been sent", ID, pos)
     speed= 3400
     acc= 254
     move_time=0
@@ -64,7 +64,7 @@ def move_servo(ID, pos):
     import time
     t1 = time.time()
     servo.write(packet)
-    print("gönderme süresi: ", time.time()-t1)
+    print("Sending duration: ", time.time()-t1)
 
 list1 = []
 list2 = []
@@ -143,18 +143,18 @@ while True:
 
 # Pot1 -> Servo ID 1
                 if last_med1 is None or abs(med1 - last_med1) > 50:
-                    print("M1 hedef:", med1)
+                    print("M1 target:", med1)
                     move_servo(1, med1)
                     last_med1 = med1
 
 # Pot2 -> Servo ID 2
                 if last_med2 is None or abs(med2 - last_med2) > 50:
-                    print("M2 hedef:", med2)
+                    print("M2 target:", med2)
                     move_servo(2, med2)
                     last_med2 = med2
 
         except Exception as e:
-          print("Hata:", e)
+          print("Error:", e)
 
 
     time.sleep(0.001)
