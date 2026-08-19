@@ -34,7 +34,7 @@ def write_byte(ID, address, value):
     checksum = (~sum(packet[2:])) & 0xFF
     packet.append(checksum)
     print(packet.hex())
-    print("PID komutu:", packet.hex())
+    print("PID command:", packet.hex())
     servo.write(packet)
 
 def move_servo(ID, pos):
@@ -64,7 +64,7 @@ def move_servo(ID, pos):
     import time
     t1 = time.time()
     servo.write(packet)
-    print("sending duration: ", time.time()-t1)
+    print("Sending duration: ", time.time()-t1)
 
 list1 = []
 list2 = []
@@ -143,13 +143,13 @@ while True:
 
 # Pot1 -> Servo ID 1
                 if last_med1 is None or abs(med1 - last_med1) > 50:
-                    print("M1 hedef:", med1)
+                    print("M1 target:", med1)
                     move_servo(1, med1)
                     last_med1 = med1
 
 # Pot2 -> Servo ID 2
                 if last_med2 is None or abs(med2 - last_med2) > 50:
-                    print("M2 hedef:", med2)
+                    print("M2 target:", med2)
                     move_servo(2, med2)
                     last_med2 = med2
 
